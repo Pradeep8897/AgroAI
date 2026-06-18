@@ -290,8 +290,8 @@ class MainActivity : AppCompatActivity() {
 
         @JavascriptInterface
         fun getBackendUrl(): String {
-            // Default to our active reverse tunnel URL
-            return "https://eed9a8ba5ba369.lhr.life"
+            // Default to our deployed Render backend URL
+            return "https://agroai-backend-tu07.onrender.com"
         }
     }
 }
