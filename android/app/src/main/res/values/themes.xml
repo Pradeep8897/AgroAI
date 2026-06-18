@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.AgroAIAndroid" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#1E3A2A</item>
+        <item name="colorPrimaryVariant">#15331F</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="android:statusBarColor">#122615</item>
+        <item name="android:navigationBarColor">#122615</item>
+    </style>
+</resources>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBg">
+
+    <!-- Glowing Circle Background Behind Logo -->
+    <View
+        android:id="@+id/logo_glow"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@android:drawable/dialog_holo_dark_frame"
+        android:backgroundTint="#152C55E0"
+        app:layout_constraintBottom_toTopOf="@+id/logo_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
+
+    <!-- Center Icon (Leaf Icon) -->
+    <ImageView
+        android:id="@+id/logo_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@android:drawable/ic_menu_crop"
+        android:contentDescription="AgroAI Leaf"
+        app:tint="@color/primaryGreen"
+        app:layout_constraintBottom_toBottomOf="@+id/logo_glow"
+        app:layout_constraintEnd_toEndOf="@+id/logo_glow"
+        app:layout_constraintStart_toStartOf="@+id/logo_glow"
+        app:layout_constraintTop_toTopOf="@+id/logo_glow" />
+
+    <!-- Brand Text -->
+    <TextView
+        android:id="@+id/logo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-black"
+        android:text="AgroAI"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_glow" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/logo_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Smart Farm Platform"
+        android:textColor="@color/primaryGreen"
+        android:textSize="14sp"
+        android:letterSpacing="0.1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_text" />
+
+    <!-- Progress Indicator -->
+    <ProgressBar
+        android:id="@+id/splash_progress"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="48dp"
+        android:indeterminateTint="@color/primaryGreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Footer Copyright -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Powered by AI &amp; ML"
+        android:textColor="@color/textMuted"
+        android:textSize="11sp"
+        android:letterSpacing="0.05"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_progress" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,148 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script run from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tosca/
+.pytest_cache/
+.nox/
+.hypothesis/
+test/
+test_verification_report.txt
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+#   For a library or package, you might want to share your Python version with the community or team.
+#   For an application or device, it should be shared so that the environment matches.
+#   Uncomment one:
+#.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if delegates have different OS, they may get conflicts.
+#   Uncomment one:
+#Pipfile.lock
+
+# poetry
+#   Similar to Pipenv, poetry.lock contains exact versions, but may be OS-specific.
+#   Uncomment one:
+#poetry.lock
+
+# pdm
+#   Similar to Pipenv and Poetry, pdm.lock contains exact versions.
+#   Uncomment one:
+#pdm.lock
+
+# virtualenv
+.venv
+venv/
+ENV/
+env/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# Local database files (SQLite)
+backend/database/agroai.db
+database/agroai.db
+
+# Node modules & Vite frontend builds
+node_modules/
+frontend/node_modules/
+frontend/dist/
+.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# IDE configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# OS temporary files
+.DS_Store
+Thumbs.db
