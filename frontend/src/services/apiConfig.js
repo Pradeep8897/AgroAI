@@ -1,56 +1,54 @@
 // apiConfig.js - Dynamically determine the backend API base URL
-// Priority order:
-//   1. User-saved URL in localStorage (Settings page)
-//   2. AndroidBridge.getBackendUrl() from Kotlin (real device / APK)
-//   3. VITE_API_BASE environment variable (web / dev builds)
-//   4. Deployed Render backend (ultimate fallback)
-
-const RENDER_BACKEND = 'https://agroai-backend-tu07.onrender.com/api';
-
-const ensureApiSuffix = (url) => {
-  if (!url) return RENDER_BACKEND;
-  const trimmed = url.trim().replace(/\/+$/, '');
-  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
-};
+// When running in the Android WebView app, checks for user configurations in localStorage,
+// queries the native Java bridge (AndroidBridge) for the backend URL, or falls back to local loopback (10.0.2.2).
 
 export const getApiBase = () => {
-  // 1. User-configured URL from Settings (highest priority)
+  const ensureApiSuffix = (url) => {
+    if (!url) return '/api';
+    const trimmed = url.trim().replace(/\/+$/, '');
+    if (trimmed.endsWith('/api')) {
+      return trimmed;
+    }
+    return `${trimmed}/api`;
+  };
+
+  // 1. First priority: Check if user configured a custom backend server address in Settings
   try {
     const savedUrl = localStorage.getItem('agroai_backend_url');
     if (savedUrl && savedUrl.trim() !== '') {
       return ensureApiSuffix(savedUrl);
     }
   } catch (e) {
-    console.error('Failed to read backend URL from localStorage:', e);
+    console.error("Failed to read backend URL from localStorage:", e);
   }
 
-  // 2. Native Android bridge (Kotlin getBackendUrl) — works on real APK installs
+  // 2. Second priority: Query dynamic value from Kotlin bridge if connected
   if (window.AndroidBridge && typeof window.AndroidBridge.getBackendUrl === 'function') {
     try {
       const bridgeUrl = window.AndroidBridge.getBackendUrl();
-      if (bridgeUrl && bridgeUrl.startsWith('http') && !bridgeUrl.includes('YOUR_DEPLOYED_URL')) {
+      if (bridgeUrl && bridgeUrl !== "https://YOUR_DEPLOYED_URL") {
         return ensureApiSuffix(bridgeUrl);
       }
     } catch (e) {
-      console.error('Failed to fetch backend URL from Android Bridge:', e);
+      console.error("Failed to fetch backend URL from Android Bridge:", e);
     }
   }
-
-  // 3. Vite build-time environment variable (web production / dev builds)
+  
+  // 3. Third priority: Standalone Android App default local loopback for emulator testing
+  if (navigator.userAgent.includes('AgroAI-Android')) {
+    // 10.0.2.2 is Android Emulator loopback pointing to host's localhost (Flask on port 5000)
+    return 'http://10.0.2.2:5000/api';
+  }
+  
+  // 4. Fourth priority: Fallback for development server environment variables
   const envBase = import.meta.env.VITE_API_BASE;
   if (envBase) {
     return ensureApiSuffix(envBase);
   }
-
-  // 4. Deployed Render backend — ultimate fallback for all environments
-  return RENDER_BACKEND;
+  
+  // 5. Ultimate default fallback
+  return '/api';
 };
 
-// NOTE: getApiBase() is called dynamically via this object's toString() method
-// so the AndroidBridge (which loads async in WebView) is ready when the call is made.
-export const API_BASE = {
-  toString() {
-    return getApiBase();
-  }
-};
+export const API_BASE = getApiBase();
 

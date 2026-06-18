@@ -39,8 +39,8 @@ export default function UploadImage() {
       const data = await detectDisease(file, user?.id)
       if (data.success) setResult(data)
       else setError(data.message || 'Detection failed.')
-    } catch (err) {
-      setError(`Backend unavailable at ${API_BASE}. Please ensure the Flask server is running. (Error: ${err.message})`)
+    } catch {
+      setError('Backend unavailable. Please start the Flask server.')
     }
     setLoading(false)
   }

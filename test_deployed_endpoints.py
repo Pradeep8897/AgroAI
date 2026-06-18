@@ -20,11 +20,7 @@ def run_tests(base_url):
         nonlocal passed, failed
         status = "PASS" if success else "FAIL"
         symbol = "[+]" if success else "[-]"
-        try:
-            symbol_emoji = "✅" if success else "❌"
-            print(f"{symbol_emoji} {name:<45} : {status} {info}")
-        except UnicodeEncodeError:
-            print(f"{symbol} {name:<45} : {status} {info}")
+        print(f"{symbol} {name:<45} : {status} {info}")
         if success:
             passed += 1
         else:

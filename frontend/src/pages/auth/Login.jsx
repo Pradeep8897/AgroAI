@@ -3,7 +3,6 @@ import { Link, useNavigate, Navigate } from 'react-router-dom'
 import { Leaf, Eye, EyeOff, Loader2, CheckCircle, Settings, Server } from 'lucide-react'
 import { loginUser } from '../../services/authService'
 import { useAuth } from '../../App'
-import { API_BASE } from '../../services/apiConfig'
 
 export default function Login() {
   const { login, isLoggedIn } = useAuth()
@@ -37,8 +36,8 @@ export default function Login() {
       } else {
         setError(data.message || 'Login failed.')
       }
-    } catch (err) {
-      setError(`Cannot connect to server at ${API_BASE}. Please ensure the backend is running. (Error: ${err.message})`)
+    } catch {
+      setError('Cannot connect to server. Please ensure the backend is running.')
     }
     setLoading(false)
   }
