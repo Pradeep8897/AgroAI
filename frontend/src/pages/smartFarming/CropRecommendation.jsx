@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Sprout, Loader2, CheckCircle, Thermometer, Droplets, CloudRain, Sparkles } from 'lucide-react'
 import { getCropRecommendation } from '../../services/cropService'
 import { useAuth } from '../../App'
+import { API_BASE } from '../../services/apiConfig'
 
 const CROP_FACTS = {
   'Rice': { icon: '🌾', season: 'Kharif (Jun-Nov)', water: 'High (180-220cm)', temp: '20-35°C', family: 'Poaceae' },
@@ -26,8 +27,8 @@ export default function CropRecommendation() {
       const data = await getCropRecommendation({ ...form, user_id: user?.id || 0 })
       if (data.success) setResult(data)
       else setError(data.message || 'Recommendation failed.')
-    } catch {
-      setError('Backend unavailable. Please ensure Flask server is running.')
+    } catch (err) {
+      setError(`Backend unavailable at ${API_BASE}. Please ensure the Flask server is running. (Error: ${err.message})`)
     }
     setLoading(false)
   }
