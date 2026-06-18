@@ -46,8 +46,8 @@ export const getApiBase = () => {
     return ensureApiSuffix(envBase);
   }
   
-  // 5. Ultimate default fallback
-  return '/api';
+  // 5. Ultimate default fallback — deployed Render backend
+  return 'https://agroai-backend-tu07.onrender.com/api';
 };
 
 export const API_BASE = getApiBase();
