@@ -55,10 +55,39 @@ class MainActivity : AppCompatActivity() {
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 val url = request?.url?.toString() ?: return false
-                // Allow all file:// and in-app navigation
-                if (url.startsWith("file://")) return false
-                // Allow API calls to our backend (pass through)
-                if (url.contains("/api/")) return false
+                
+                try {
+                    if (url.startsWith("tel:")) {
+                        val intent = Intent(Intent.ACTION_DIAL, Uri.parse(url))
+                        view?.context?.startActivity(intent)
+                        return true
+                    }
+                    if (url.startsWith("sms:")) {
+                        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse(url))
+                        view?.context?.startActivity(intent)
+                        return true
+                    }
+                    if (url.startsWith("mailto:")) {
+                        val intent = Intent(Intent.ACTION_SENDTO, Uri.parse(url))
+                        view?.context?.startActivity(intent)
+                        return true
+                    }
+                    if (url.startsWith("geo:")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        view?.context?.startActivity(intent)
+                        return true
+                    }
+                    if (url.startsWith("http://") || url.startsWith("https://")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        view?.context?.startActivity(intent)
+                        return true
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(view?.context, "No app found to handle this action.", Toast.LENGTH_SHORT).show()
+                    return true
+                }
+                
+                // Allow all other URLs (e.g., file://) to load in the WebView
                 return false
             }
 
