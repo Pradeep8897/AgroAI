@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.webkit.WebViewAssetLoader
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -51,12 +52,17 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
     private fun setupWebView(webView: WebView) {
+        // ── WebViewAssetLoader for mapping https://appassets.androidplatform.net to assets ─────────────────
+        val assetLoader = WebViewAssetLoader.Builder()
+            .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this))
+            .build()
+
         // ── WebViewClient: intercept navigation & API calls ────────────────────
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 val url = request?.url?.toString() ?: return false
-                // Allow all file:// and in-app navigation
-                if (url.startsWith("file://")) return false
+                // Allow all appassets, file:// and in-app navigation
+                if (url.startsWith("file://") || url.contains("appassets.androidplatform.net")) return false
                 // Allow API calls to our backend (pass through)
                 if (url.contains("/api/")) return false
                 return false
@@ -66,7 +72,13 @@ class MainActivity : AppCompatActivity() {
                 view: WebView?,
                 request: WebResourceRequest?
             ): WebResourceResponse? {
-                // Let the default handler serve all asset requests
+                // Route local assets requests through the WebViewAssetLoader
+                if (request != null) {
+                    val response = assetLoader.shouldInterceptRequest(request.url)
+                    if (response != null) {
+                        return response
+                    }
+                }
                 return super.shouldInterceptRequest(view, request)
             }
 
@@ -79,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 // For legacy Android support
                 if (failingUrl != null && (failingUrl.contains("agroai-smart.vercel.app") || failingUrl.contains("lhr.life"))) {
-                    view?.loadUrl("file:///android_asset/index.html")
+                    view?.loadUrl("https://appassets.androidplatform.net/assets/index.html")
                 }
             }
 
@@ -92,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                 if (request?.isForMainFrame == true) {
                     val url = request.url.toString()
                     if (url.contains("agroai-smart.vercel.app") || url.contains("lhr.life")) {
-                        view?.loadUrl("file:///android_asset/index.html")
+                        view?.loadUrl("https://appassets.androidplatform.net/assets/index.html")
                     }
                 }
             }
@@ -185,8 +197,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getWebAppUrl(): String {
-        // Standalone mode: load embedded local assets directly to guarantee launch without network dependency or 404 errors.
-        return "file:///android_asset/index.html"
+        // Standalone mode: load embedded local assets via secure WebViewAssetLoader
+        return "https://appassets.androidplatform.net/assets/index.html"
     }
 
     @Throws(IOException::class)

@@ -46,6 +46,11 @@ export const getApiBase = () => {
   return RENDER_BACKEND;
 };
 
-// NOTE: getApiBase() is called fresh each time so the AndroidBridge
-// (which loads async in WebView) is available when actually needed.
-export const API_BASE = getApiBase();
+// NOTE: getApiBase() is called dynamically via this object's toString() method
+// so the AndroidBridge (which loads async in WebView) is ready when the call is made.
+export const API_BASE = {
+  toString() {
+    return getApiBase();
+  }
+};
+
