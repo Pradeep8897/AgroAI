@@ -1,0 +1,743 @@
+{
+	"info": {
+		"_postman_id": "8f8e02d8-bf9b-449e-b9ef-7848c9df4f71",
+		"name": "AgroAI APIs",
+		"description": "Postman Collection for AgroAI Smart Agricultural Platform APIs. Works with both local development server and deployed Render server.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "User Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"test_farmer\",\n    \"email\": \"farmer_test@agroai.com\",\n    \"password\": \"secure_password_123\",\n    \"role\": \"farmer\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"farmer_test@agroai.com\",\n    \"password\": \"secure_password_123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer mock-jwt-token-4-farmer"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/auth/profile?user_id=4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer mock-jwt-token-4-farmer"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 4,\n    \"username\": \"test_farmer_updated\",\n    \"email\": \"farmer_test@agroai.com\",\n    \"phone\": \"+91 99999 88888\",\n    \"location\": \"Vijayawada\",\n    \"state\": \"Andhra Pradesh\",\n    \"farm_size\": 12.5,\n    \"language\": \"telugu\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/profile",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"farmer_test@agroai.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/forgot-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Crop Intelligence",
+			"item": [
+				{
+					"name": "Crop Recommendation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 4,\n    \"N\": 90,\n    \"P\": 42,\n    \"K\": 43,\n    \"ph\": 6.5,\n    \"temp\": 24.6,\n    \"humidity\": 70.2,\n    \"rainfall\": 85.0\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/crop/recommend",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"crop",
+								"recommend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fertilizer Recommendation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"crop\": \"Rice\",\n    \"N\": 40,\n    \"P\": 30,\n    \"K\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/crop/fertilizer",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"crop",
+								"fertilizer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Crop Calendar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"crop\": \"Rice\",\n    \"planting_date\": \"2026-06-20\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/crop/calendar",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"crop",
+								"calendar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crop History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/crop/history?user_id=4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"crop",
+								"history"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Disease Detection",
+			"item": [
+				{
+					"name": "Detect Disease",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"description": "Upload plant leaf image file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "user_id",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/disease/detect",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"disease",
+								"detect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Disease Reports",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/disease/reports?user_id=4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"disease",
+								"reports"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Market Intelligence",
+			"item": [
+				{
+					"name": "Get Market Prices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/market/prices?crop=Tomato",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"market",
+								"prices"
+							],
+							"query": [
+								{
+									"key": "crop",
+									"value": "Tomato"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Price Prediction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"crop\": \"Tomato\",\n    \"months\": 3\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/market/predict",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"market",
+								"predict"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Nearby Mandis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/market/mandis?pincode=524001",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"market",
+								"mandis"
+							],
+							"query": [
+								{
+									"key": "pincode",
+									"value": "524001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Equipment Rental",
+			"item": [
+				{
+					"name": "List Equipment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/equipment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"equipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Equipment Listing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mahindra 575 DI Tractor\",\n    \"type\": \"Tractor\",\n    \"owner\": \"Ramesh Patil\",\n    \"rate_per_hour\": 800.0,\n    \"rate_per_day\": 5000.0,\n    \"location\": \"Nashik, Maharashtra\",\n    \"phone\": \"+91 98765 43210\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/equipment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"equipment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book Equipment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 4,\n    \"equipment_id\": 1,\n    \"hours\": 5,\n    \"date\": \"2026-06-25\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/equipment/book",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"equipment",
+								"book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Booking History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/equipment/history?user_id=4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"equipment",
+								"history"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Marketplace",
+			"item": [
+				{
+					"name": "List Store Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/products",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 4,\n    \"product_id\": 3,\n    \"quantity\": 2,\n    \"address\": \"Paddy Farm, Nellore\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products/order",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order History",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/products/orders?user_id=4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Peer-to-Peer Listings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/listings?category=All&search=",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"listings"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "All"
+								},
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Listing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 4,\n    \"category\": \"Sell Crop\",\n    \"title\": \"Premium Basmati Rice\",\n    \"description\": \"Organic harvested rice grains.\",\n    \"price\": 3000.0,\n    \"unit\": \"quintal\",\n    \"location\": \"Amritsar, Punjab\",\n    \"quantity\": \"50 quintals\",\n    \"phone\": \"+91 99999 88888\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/listings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"listings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "System Health & DB Init",
+			"item": [
+				{
+					"name": "Root Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/health",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize Database Schema & Seeds",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/db/init",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"db",
+								"init"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://agroai-backend-tu07.onrender.com",
+			"type": "string"
+		}
+	]
+}
