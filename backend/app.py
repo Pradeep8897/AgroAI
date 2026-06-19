@@ -14,8 +14,15 @@ from routes.profit import profit_bp
 from routes.assistant import assistant_bp
 from routes.admin import admin_bp
 from routes.notification import notification_bp
-
 app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return {
+        "status": "success",
+        "message": "AgroAI Backend Running"
+    }
+
 # Enable CORS for frontend running on localhost:5173 or others
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
@@ -419,15 +426,7 @@ def create_listing():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-# Root route for users opening the backend URL directly
-@app.route('/', methods=['GET'])
-def root():
-    return jsonify({
-        "success": True,
-        "message": "AgroAI backend is running. Open the frontend at http://localhost:5173/",
-        "frontend": "http://localhost:5173/",
-        "health": "/api/health"
-    })
+
 
 # Root check
 @app.route('/api/health', methods=['GET'])
