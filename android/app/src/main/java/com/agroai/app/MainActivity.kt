@@ -320,7 +320,7 @@ class MainActivity : AppCompatActivity() {
         @JavascriptInterface
         fun getBackendUrl(): String {
             // Default to our deployed Render backend URL
-            return "https://agroai-backend-tu07.onrender.com"
+            return "https://agroai-j3v2.onrender.com"
         }
     }
 }

@@ -29,10 +29,11 @@ def run_tests(base_url):
     # Test 1: Root endpoint health
     try:
         r = session.get(f"{base_url}/")
-        if r.status_code == 200 and r.json().get('success') is True:
-            report_result("Root End-point (GET /)", True, f"({r.json().get('message')})")
+        res_json = r.json()
+        if r.status_code == 200 and (res_json.get('success') is True or res_json.get('status') == 'success'):
+            report_result("Root End-point (GET /)", True, f"({res_json.get('message')})")
         else:
-            report_result("Root End-point (GET /)", False, f"Status: {r.status_code}")
+            report_result("Root End-point (GET /)", False, f"Status: {r.status_code}, Body: {r.text}")
     except Exception as e:
         report_result("Root End-point (GET /)", False, str(e))
 

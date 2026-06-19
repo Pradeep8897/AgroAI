@@ -4,7 +4,7 @@ import sys
 import random
 
 def test_endpoints():
-    base_url = "https://agroai-backend-tu07.onrender.com"
+    base_url = "https://agroai-j3v2.onrender.com"
     print(f"Testing APIs on deployed backend: {base_url}\n")
     
     session = requests.Session()
