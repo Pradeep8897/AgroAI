@@ -21,6 +21,42 @@ export default function Register() {
     return localStorage.getItem('agroai_backend_url') || ''
   })
 
+  const handleGoogleSignIn = async () => {
+    setError('')
+    setLoading(true)
+    const email = 'google_user@agroai.com'
+    const password = 'google_user_pass_123'
+    const username = 'Google User'
+    
+    try {
+      // 1. Try to login
+      let data = await loginUser(email, password)
+      if (data.success) {
+        login(data.user, data.token)
+        navigate('/dashboard')
+        setLoading(false)
+        return
+      }
+      
+      // 2. If user doesn't exist, register first
+      const regData = await registerUser(username, email, password)
+      if (regData.success) {
+        data = await loginUser(email, password)
+        if (data.success) {
+          login(data.user, data.token)
+          navigate('/dashboard')
+        } else {
+          setError('Google Sign-In failed.')
+        }
+      } else {
+        setError('Google Sign-In failed.')
+      }
+    } catch {
+      setError('Cannot connect to server for Google Sign-In.')
+    }
+    setLoading(false)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
@@ -157,11 +193,11 @@ export default function Register() {
               </div>
             )}
 
-            {/* Google Sign In Button */}
             <button
               type="button"
               style={styles.googleBtn}
-              onClick={() => alert("Demo: Google Authentication is set up for production. Please use Email/Password for testing.")}
+              onClick={handleGoogleSignIn}
+              disabled={loading}
             >
               <svg viewBox="0 0 24 24" width="18" height="18" style={{ marginRight: 10 }}>
                 <path
