@@ -80,7 +80,7 @@ export default function Login() {
               <Server size={16} color="#22c55e" /> Server Connection
             </h3>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 20, textAlign: 'center' }}>
-              Specify the IP address or host domain of your local Flask backend server (e.g. <code>http://192.168.x.x:5000</code>).
+              Specify the host domain of your deployed backend server (e.g. <code>https://agroai-9ibe.onrender.com</code>).
             </p>
             
             <div className="form-group">
@@ -88,7 +88,7 @@ export default function Login() {
               <input 
                 type="text" 
                 className="form-input" 
-                placeholder="E.g., http://192.168.1.15:5000"
+                placeholder="E.g., https://agroai-9ibe.onrender.com"
                 value={backendUrl} 
                 onChange={e => setBackendUrl(e.target.value)} 
               />

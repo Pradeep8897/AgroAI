@@ -36,8 +36,7 @@ export const getApiBase = () => {
   
   // 3. Third priority: Standalone Android App default local loopback for emulator testing
   if (navigator.userAgent.includes('AgroAI-Android')) {
-    // 10.0.2.2 is Android Emulator loopback pointing to host's localhost (Flask on port 5000)
-    return 'http://10.0.2.2:5000/api';
+    return 'https://agroai-9ibe.onrender.com/api';
   }
   
   // 4. Fourth priority: Fallback for development server environment variables
@@ -47,7 +46,7 @@ export const getApiBase = () => {
   }
   
   // 5. Ultimate default fallback
-  return '/api';
+  return 'https://agroai-9ibe.onrender.com/api';
 };
 
 export const API_BASE = getApiBase();

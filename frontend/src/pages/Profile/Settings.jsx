@@ -236,7 +236,7 @@ export default function Settings() {
             <Server size={18} color="var(--color-info)" /> Backend Connection Settings
           </h3>
           <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginBottom: 14 }}>
-            Specify the IP address or host domain of your local Flask backend server. When testing inside the Android Emulator, use <code>http://10.0.2.2:5000</code>.
+            Specify the host domain of your deployed backend server (e.g. <code>https://agroai-9ibe.onrender.com</code>).
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -245,7 +245,7 @@ export default function Settings() {
               <input 
                 type="text" 
                 className="form-input" 
-                placeholder="E.g., http://10.0.2.2:5000"
+                placeholder="E.g., https://agroai-9ibe.onrender.com"
                 value={backendUrl} 
                 onChange={e => setBackendUrl(e.target.value)} 
               />

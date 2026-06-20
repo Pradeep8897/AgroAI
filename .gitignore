@@ -146,3 +146,7 @@ frontend/.env.production.local
 # OS temporary files
 .DS_Store
 Thumbs.db
+
+# Scratch and test directory
+scratch/
+
