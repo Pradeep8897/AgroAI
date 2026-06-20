@@ -97,7 +97,7 @@ export default function AppRoutes() {
   return (
     <Routes>
       {/* Landing */}
-      <Route path="/" element={<LandingLayout><Home /></LandingLayout>} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/features" element={<LandingLayout><Features /></LandingLayout>} />
       <Route path="/about" element={<LandingLayout><About /></LandingLayout>} />
       <Route path="/contact" element={<LandingLayout><Contact /></LandingLayout>} />
@@ -158,7 +158,7 @@ export default function AppRoutes() {
       <Route path="/admin/diseases" element={<ProtectedRoute><AppLayout><AdminDiseases /></AppLayout></ProtectedRoute>} />
 
       {/* 404 fallback */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   )
 }
